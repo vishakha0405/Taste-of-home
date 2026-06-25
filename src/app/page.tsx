@@ -1,16 +1,11 @@
-import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
-import FeaturedRecipes from "@/components/FeaturedRecipes";
-import MemoryWall from "@/components/MemoryWall";
+import Hero from "@/components/home/Hero";
+import HowItWorks from "@/components/home/HowItWorks";
 
 export default function Home() {
   return (
-    <>
-      <Navbar />
+    <main className="bg-[#FAF6F0]">
       <Hero />
-      <FeaturedRecipes />
-      <MemoryWall />
-
-    </>
+      <HowItWorks />
+    </main>
   );
 }
