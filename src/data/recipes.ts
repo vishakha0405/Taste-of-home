@@ -28,7 +28,7 @@ export const recipes = [
   },
 
   {
-    image: "/images/recipes/paratha.jpg",
+    image: "/recipes/paratha.jpg",
     title: "Stuffed Aloo Paratha",
     story:
       "The breakfast everyone waited for every winter morning before school.",

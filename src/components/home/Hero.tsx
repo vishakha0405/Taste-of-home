@@ -6,18 +6,18 @@ import { motion } from "framer-motion";
 export default function Hero() {
   return (
     <section className="bg-[#FAF6F0]">
-      <div className="mx-auto grid max-w-7xl items-center gap-16 px-6 py-24 lg:grid-cols-2">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 px-6 py-24 lg:grid-cols-2">
         {/* Left */}
         <motion.div
           initial={{ opacity: 0, x: -40 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7 }}
         >
-          <p className="font-script mb-8 text-5xl text-[#7A9E7E]">
-            for the ones who remember
+          <p className="[font-family:var(--font-allura)] mb-6 text-4xl text-[#7A9E7E] md:text-5xl">
+             for the ones who remember
           </p>
 
-          <h1 className="font-[var(--font-playfair)] text-6xl font-bold leading-tight text-[#3D2B1F] lg:text-7xl">
+          <h1 className="font-[var(--font-playfair)] text-5xl font-bold leading-tight text-[#3D2B1F] md:text-6xl lg:text-7xl">
             Some recipes
             <br />
             <span className="text-[#C17F5F]">deserve</span>
@@ -52,10 +52,10 @@ export default function Hero() {
             <Image
               src="/images/hero/hero.jpg"
               alt="Grandmother cooking"
-              width={700}
-              height={700}
+              width={600}
+              height={800}
               priority
-              className="h-[700px] w-full object-cover"
+              className="h-[500px] w-full object-cover"
             />
           </div>
 

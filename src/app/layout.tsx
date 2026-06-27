@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
 import {
   Playfair_Display,
-  Nunito,
+  Inter,
+  Allura,
   Cormorant_Garamond,
 } from "next/font/google";
 import "./globals.css";
@@ -11,16 +11,21 @@ const playfair = Playfair_Display({
   variable: "--font-playfair",
 });
 
-const nunito = Nunito({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-nunito",
+  variable: "--font-inter",
+});
+
+const allura = Allura({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-allura",
 });
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
-  style: ["italic"],
-  weight: ["400"],
-  variable: "--font-script",
+  weight: ["500", "600", "700"],
+  variable: "--font-cormorant",
 });
 
 export const metadata: Metadata = {
@@ -36,8 +41,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-  className={`${playfair.variable} ${nunito.variable} ${cormorant.variable}`}
+            className={`${playfair.variable} ${inter.variable} ${allura.variable} ${cormorant.variable}`}
       >
+       
         {children}
       </body>
     </html>

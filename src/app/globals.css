@@ -21,3 +21,7 @@ a {
 .font-script {
   font-family: var(--font-script);
 }
+
+.font-cormorant {
+  font-family: var(--font-cormorant);
+}
