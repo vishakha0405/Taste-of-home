@@ -7,6 +7,7 @@ import {
 } from "next/font/google";
 
 import "./globals.css";
+import { Toaster } from "react-hot-toast";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -46,6 +47,18 @@ export default function RootLayout({
         className={`${playfair.variable} ${inter.variable} ${allura.variable} ${cormorant.variable} font-inter`}
       >
         {children}
+
+        <Toaster
+          position="top-right"
+          toastOptions={{
+            duration: 3000,
+            style: {
+              borderRadius: "12px",
+              background: "#3D2B1F",
+              color: "#fff",
+            },
+          }}
+        />
       </body>
     </html>
   );

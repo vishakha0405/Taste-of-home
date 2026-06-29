@@ -2,7 +2,17 @@
 
 import { useState } from "react";
 
-export default function ImageUpload() {
+type Props = {
+  formData: {
+    image: File | null;
+  };
+  setFormData: React.Dispatch<React.SetStateAction<any>>;
+};
+
+export default function ImageUpload({
+  formData,
+  setFormData,
+}: Props) {
   const [preview, setPreview] = useState<string | null>(null);
 
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -11,6 +21,11 @@ export default function ImageUpload() {
     if (!file) return;
 
     setPreview(URL.createObjectURL(file));
+
+    setFormData((prev: any) => ({
+      ...prev,
+      image: file,
+    }));
   };
 
   return (
@@ -19,7 +34,7 @@ export default function ImageUpload() {
         Recipe Cover Image
       </h2>
 
-      <label className="flex h-72 cursor-pointer items-center justify-center rounded-2xl border-2 border-dashed border-[#C57D56] bg-[#FFF8F3] transition hover:bg-[#FFF2EA]">
+      <label className="flex h-72 cursor-pointer items-center justify-center rounded-2xl border-2 border-dashed border-[#C57D56] bg-[#FFF8F3] hover:bg-[#FFF2EA] transition">
 
         {preview ? (
           <img

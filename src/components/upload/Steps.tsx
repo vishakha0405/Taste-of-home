@@ -1,23 +1,40 @@
-"use client";
+type Props = {
+  formData: {
+    steps: string[];
+  };
+  setFormData: React.Dispatch<React.SetStateAction<any>>;
+};
 
-import { useState } from "react";
-
-export default function Steps() {
-  const [steps, setSteps] = useState([""]);
-
+export default function Steps({
+  formData,
+  setFormData,
+}: Props) {
   const addStep = () => {
-    setSteps([...steps, ""]);
+    setFormData((prev: any) => ({
+      ...prev,
+      steps: [...prev.steps, ""],
+    }));
   };
 
   const updateStep = (index: number, value: string) => {
-    const updated = [...steps];
+    const updated = [...formData.steps];
     updated[index] = value;
-    setSteps(updated);
+
+    setFormData((prev: any) => ({
+      ...prev,
+      steps: updated,
+    }));
   };
 
   const removeStep = (index: number) => {
-    const updated = steps.filter((_, i) => i !== index);
-    setSteps(updated);
+    const updated = formData.steps.filter(
+      (_: string, i: number) => i !== index
+    );
+
+    setFormData((prev: any) => ({
+      ...prev,
+      steps: updated,
+    }));
   };
 
   return (
@@ -26,12 +43,12 @@ export default function Steps() {
         Cooking Steps
       </h2>
 
-      {steps.map((step, index) => (
+      {formData.steps.map((step, index) => (
         <div
           key={index}
           className="rounded-2xl border border-[#E8DDD2] p-5"
         >
-          <label className="mb-3 block font-semibold text-[#4A3428]">
+          <label className="mb-3 block font-semibold">
             Step {index + 1}
           </label>
 
@@ -39,15 +56,17 @@ export default function Steps() {
             rows={4}
             value={step}
             placeholder="Describe this cooking step..."
-            onChange={(e) => updateStep(index, e.target.value)}
-            className="w-full resize-none rounded-xl border border-[#E8DDD2] p-4 outline-none focus:border-[#C57D56]"
+            onChange={(e) =>
+              updateStep(index, e.target.value)
+            }
+            className="w-full resize-none rounded-xl border border-[#E8DDD2] p-4"
           />
 
           <div className="mt-4 flex justify-end">
             <button
               type="button"
               onClick={() => removeStep(index)}
-              className="rounded-xl bg-red-100 px-4 py-2 text-red-600 hover:bg-red-200"
+              className="rounded-xl bg-red-100 px-4 py-2 text-red-600"
             >
               Remove Step
             </button>
@@ -58,7 +77,7 @@ export default function Steps() {
       <button
         type="button"
         onClick={addStep}
-        className="rounded-xl border-2 border-dashed border-[#C57D56] px-6 py-3 text-[#C57D56] hover:bg-[#FFF3EC]"
+        className="rounded-xl border-2 border-dashed border-[#C57D56] px-6 py-3 text-[#C57D56]"
       >
         + Add Step
       </button>

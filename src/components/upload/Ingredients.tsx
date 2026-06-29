@@ -1,23 +1,40 @@
-"use client";
+type Props = {
+  formData: {
+    ingredients: string[];
+  };
+  setFormData: React.Dispatch<React.SetStateAction<any>>;
+};
 
-import { useState } from "react";
-
-export default function Ingredients() {
-  const [ingredients, setIngredients] = useState([""]);
-
+export default function Ingredients({
+  formData,
+  setFormData,
+}: Props) {
   const addIngredient = () => {
-    setIngredients([...ingredients, ""]);
+    setFormData((prev: any) => ({
+      ...prev,
+      ingredients: [...prev.ingredients, ""],
+    }));
   };
 
   const updateIngredient = (index: number, value: string) => {
-    const updated = [...ingredients];
+    const updated = [...formData.ingredients];
     updated[index] = value;
-    setIngredients(updated);
+
+    setFormData((prev: any) => ({
+      ...prev,
+      ingredients: updated,
+    }));
   };
 
   const removeIngredient = (index: number) => {
-    const updated = ingredients.filter((_, i) => i !== index);
-    setIngredients(updated);
+    const updated = formData.ingredients.filter(
+      (_: string, i: number) => i !== index
+    );
+
+    setFormData((prev: any) => ({
+      ...prev,
+      ingredients: updated,
+    }));
   };
 
   return (
@@ -26,7 +43,7 @@ export default function Ingredients() {
         Ingredients
       </h2>
 
-      {ingredients.map((ingredient, index) => (
+      {formData.ingredients.map((ingredient, index) => (
         <div key={index} className="flex gap-3">
           <input
             type="text"
@@ -41,7 +58,7 @@ export default function Ingredients() {
           <button
             type="button"
             onClick={() => removeIngredient(index)}
-            className="rounded-xl bg-red-100 px-5 text-red-600 hover:bg-red-200"
+            className="rounded-xl bg-red-100 px-5 text-red-600"
           >
             ✕
           </button>
@@ -51,7 +68,7 @@ export default function Ingredients() {
       <button
         type="button"
         onClick={addIngredient}
-        className="rounded-xl border-2 border-dashed border-[#C57D56] px-6 py-3 text-[#C57D56] hover:bg-[#FFF3EC]"
+        className="rounded-xl border-2 border-dashed border-[#C57D56] px-6 py-3 text-[#C57D56]"
       >
         + Add Ingredient
       </button>

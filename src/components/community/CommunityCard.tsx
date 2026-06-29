@@ -6,8 +6,10 @@ import {
   Share2,
   Clock,
 } from "lucide-react";
+import Link from "next/link";
 
 type CommunityCardProps = {
+  id: string;
   image: string;
   title: string;
   description: string;
@@ -22,6 +24,7 @@ type CommunityCardProps = {
 };
 
 export default function CommunityCard({
+  id,
   image,
   title,
   description,
@@ -33,9 +36,11 @@ export default function CommunityCard({
   likes,
   comments,
   time,
-}: CommunityCardProps) {
+}: CommunityCardProps)
+ {
   return (
-    <article className="overflow-hidden rounded-[32px] border border-[#E9DED2] bg-white shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-xl">
+    <Link href={`/recipe/${id}`}>
+  <article className="overflow-hidden rounded-[32px] border border-[#E9DED2] bg-white shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-xl cursor-pointer">
 
       {/* Image */}
       <div className="relative h-[220px] w-full">
@@ -139,5 +144,6 @@ export default function CommunityCard({
       </div>
 
     </article>
+</Link>
   );
 }
