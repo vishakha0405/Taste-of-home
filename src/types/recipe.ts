@@ -1,4 +1,6 @@
-export interface RecipeFormData {
+export interface Recipe {
+  id: string;
+
   recipe_name: string;
   author_name: string;
   recipe_owner: string;
@@ -7,15 +9,18 @@ export interface RecipeFormData {
 
   story: string;
 
-  prep_time: string;
-  cook_time: string;
-  servings: string;
+  prep_time: number;
+  cook_time: number;
+  serving: number;
+
   difficulty: string;
   category: string;
   diet: string;
 
-  ingredients: string[];
-  steps: string[];
+  ingredients: string;
+  steps: string;
 
-  image: File | null;
+  image_url: string;
+
+  created_at?: string;
 }

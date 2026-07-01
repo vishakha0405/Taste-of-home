@@ -1,4 +1,5 @@
 import { supabase } from "@/lib/supabase";
+import { Recipe } from "@/types/recipe";
 
 export async function uploadRecipe(formData: any) {
   try {
@@ -70,4 +71,36 @@ export async function uploadRecipe(formData: any) {
       
     };
   }
+}
+
+export async function getRecipeById(
+  id: string
+): Promise<Recipe | null> {
+  const { data, error } = await supabase
+    .from("recipes")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error) {
+    console.error(error);
+    return null;
+  }
+
+  return data;
+}
+
+export async function getMoreRecipes(currentRecipeId: string) {
+  const { data, error } = await supabase
+    .from("recipes")
+    .select("*")
+    .neq("id", currentRecipeId)
+    .limit(4);
+
+  if (error) {
+    console.error(error);
+    return [];
+  }
+
+  return data;
 }

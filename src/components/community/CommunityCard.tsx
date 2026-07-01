@@ -9,7 +9,7 @@ import {
 import Link from "next/link";
 
 type CommunityCardProps = {
-  id: string;
+  id: number;
   image: string;
   title: string;
   description: string;
