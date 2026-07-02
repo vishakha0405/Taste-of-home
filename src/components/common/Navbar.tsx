@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import Logo from "./Logo";
 import AuthButton from "./AuthButton";
-
+import UserMenu from "./UserMenu";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -49,9 +49,7 @@ export default function Navbar() {
 
         {/* Desktop Buttons */}
         <div className="hidden items-center gap-3 md:flex">
-          <button className="rounded-full border border-[#E8DDD3] bg-white px-6 py-2 text-sm font-medium text-[#5A4737] transition hover:bg-[#F8F3EE]">
-            Login
-          </button>
+          <UserMenu />
 
           <Link
             href="/upload"
@@ -109,7 +107,7 @@ export default function Navbar() {
             About
           </Link>
 
-          <AuthButton />
+          <UserMenu />
 
           <Link
             href="/upload"
