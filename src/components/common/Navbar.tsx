@@ -4,6 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import Logo from "./Logo";
+import AuthButton from "./AuthButton";
+
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -107,9 +109,7 @@ export default function Navbar() {
             About
           </Link>
 
-          <button className="mt-6 rounded-full border border-[#E8DDD3] py-3 font-medium">
-            Login
-          </button>
+          <AuthButton />
 
           <Link
             href="/upload"
