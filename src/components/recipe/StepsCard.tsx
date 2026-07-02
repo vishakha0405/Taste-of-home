@@ -1,8 +1,10 @@
-type StepsCardProps = {
-  recipe: any;
+import { Recipe } from "@/types/recipe";
+
+type Props = {
+  recipe: Recipe;
 };
 
-export default function StepsCard({
+export default function StepsCard({ recipe }: Props) {
   recipe,
 }: StepsCardProps) {
   const steps =

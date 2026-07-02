@@ -25,3 +25,7 @@ a {
 .font-cormorant {
   font-family: var(--font-cormorant);
 }
+
+html {
+  scroll-behavior: smooth;
+}

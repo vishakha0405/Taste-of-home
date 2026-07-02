@@ -13,7 +13,9 @@ type Props = {
   recipe: Recipe;
 };
 
-export default function RecipeHero({ recipe }: Props) {
+export default function RecipeMeta({ recipe }: Props) 
+
+ {
   const items = [
     {
       icon: <Clock3 className="h-5 w-5 text-[#C17F5F]" />,

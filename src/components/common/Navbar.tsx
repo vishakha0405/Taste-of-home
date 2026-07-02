@@ -3,54 +3,68 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
+import Logo from "./Logo";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[#E9DED2] bg-[#FAF6F0]/90 backdrop-blur-md">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
-
+    <header className="sticky top-0 z-50 border-b border-[#E9DED2] bg-[#FAF6F0]/95 backdrop-blur-md">
+      <div className="mx-auto flex h-[74px] max-w-7xl items-center justify-between px-6">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#C17F5F] text-xl text-white">
-            ❤
-          </div>
-
-          <div>
-            <h1 className="whitespace-nowrap text-2xl font-bold text-[#3D2B1F] sm:text-3xl">
-              Taste of Home
-            </h1>
-
-            <p className="text-sm italic text-[#8E7B6A]">
-              Every recipe has a story
-            </p>
-          </div>
-        </Link>
+        <Logo />
 
         {/* Desktop Navigation */}
-        <nav className="hidden gap-10 font-medium text-[#5A4737] md:flex">
-          <Link href="/">Home</Link>
-          <Link href="/recipes">Recipes</Link>
-          <Link href="/memories">Memories</Link>
-          <Link href="/community">Community</Link>
-          <Link href="/about">About</Link>
+        <nav className="hidden items-center gap-10 md:flex">
+          <Link
+            href="/"
+            className="font-medium text-[#5A4737] transition-colors hover:text-[#C17F5F]"
+          >
+            Discover
+          </Link>
+
+          <Link
+            href="/memories"
+            className="font-medium text-[#5A4737] transition-colors hover:text-[#C17F5F]"
+          >
+            Memories
+          </Link>
+
+          <Link
+            href="/community"
+            className="font-medium text-[#5A4737] transition-colors hover:text-[#C17F5F]"
+          >
+            Community
+          </Link>
+
+          <Link
+            href="/about"
+            className="font-medium text-[#5A4737] transition-colors hover:text-[#C17F5F]"
+          >
+            About
+          </Link>
         </nav>
 
-        {/* Desktop Button */}
-        <Link
-          href="/upload"
-          className="hidden rounded-full bg-[#C17F5F] px-7 py-3 font-semibold text-white shadow-lg transition hover:bg-[#B36E4C] md:block"
-        >
-          Share Recipe
-        </Link>
+        {/* Desktop Buttons */}
+        <div className="hidden items-center gap-3 md:flex">
+          <button className="rounded-full border border-[#E8DDD3] bg-white px-6 py-2 text-sm font-medium text-[#5A4737] transition hover:bg-[#F8F3EE]">
+            Login
+          </button>
+
+          <Link
+            href="/upload"
+            className="rounded-full bg-[#C17F5F] px-6 py-2 text-sm font-semibold text-white transition hover:bg-[#B36E4C]"
+          >
+            Share a Recipe
+          </Link>
+        </div>
 
         {/* Mobile Menu Button */}
         <button
           onClick={() => setIsOpen(true)}
           className="text-[#3D2B1F] md:hidden"
         >
-          <Menu size={30} />
+          <Menu size={28} />
         </button>
       </div>
 
@@ -64,25 +78,21 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       <div
-        className={`fixed right-0 top-0 z-50 h-full w-72 bg-[#FAF6F0] shadow-2xl transition-transform duration-300 md:hidden ${
+        className={`fixed right-0 top-0 z-50 h-full w-72 bg-[#FAF6F0] shadow-xl transition-transform duration-300 ${
           isOpen ? "translate-x-0" : "translate-x-full"
-        }`}
+        } md:hidden`}
       >
         <div className="flex items-center justify-between border-b border-[#E9DED2] p-6">
-          <h2 className="text-2xl font-bold text-[#3D2B1F]">Menu</h2>
+          <h2 className="text-xl font-semibold text-[#3D2B1F]">Menu</h2>
 
           <button onClick={() => setIsOpen(false)}>
-            <X size={28} />
+            <X size={26} />
           </button>
         </div>
 
-        <nav className="flex flex-col gap-8 p-8 text-xl font-medium text-[#3D2B1F]">
+        <nav className="flex flex-col gap-6 p-8">
           <Link href="/" onClick={() => setIsOpen(false)}>
-            Home
-          </Link>
-
-          <Link href="/recipes" onClick={() => setIsOpen(false)}>
-            Recipes
+            Discover
           </Link>
 
           <Link href="/memories" onClick={() => setIsOpen(false)}>
@@ -97,12 +107,16 @@ export default function Navbar() {
             About
           </Link>
 
+          <button className="mt-6 rounded-full border border-[#E8DDD3] py-3 font-medium">
+            Login
+          </button>
+
           <Link
             href="/upload"
             onClick={() => setIsOpen(false)}
-            className="mt-6 rounded-full bg-[#C17F5F] py-4 text-center font-semibold text-white"
+            className="rounded-full bg-[#C17F5F] py-3 text-center font-semibold text-white"
           >
-            Share Recipe
+            Share a Recipe
           </Link>
         </nav>
       </div>
