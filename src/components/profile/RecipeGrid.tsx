@@ -1,11 +1,11 @@
-export default function RecipeGrid() {
-  return (
-    <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-      <div className="h-80 rounded-3xl bg-white shadow-sm"></div>
+import EmptyState from "./EmptyState";
 
-      <div className="h-80 rounded-3xl bg-white shadow-sm"></div>
+type RecipeGridProps = {
+  activeTab: "recipes" | "saved";
+};
 
-      <div className="h-80 rounded-3xl bg-white shadow-sm"></div>
-    </div>
-  );
+export default function RecipeGrid({
+  activeTab,
+}: RecipeGridProps) {
+  return <EmptyState activeTab={activeTab} />;
 }
