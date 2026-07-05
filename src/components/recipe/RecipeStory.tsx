@@ -27,27 +27,13 @@ export default function RecipeStory({ recipe }: Props) {
       <div className="rounded-[24px] bg-[#FAF6F0] p-6">
 
         <div className="space-y-6 text-[19px] leading-8 text-[#5A4A3C]">
-
-          <p>
-            My great-grandmother, Rosa Carla Ferretti, arrived in Bologna as
-            a young bride carrying nothing but a handwritten recipe from her
-            mother. Every Sunday, fresh pasta became the heart of our family.
-          </p>
-
-          <p>
-            We woke to flour covering the kitchen floor, the aroma of butter
-            melting in the pan, and Nonna humming while preparing lunch.
-            Cooking wasn't just about food—it was about spending time
-            together.
-          </p>
-
-          <p>
-            Today, every birthday, festival and family gathering begins with
-            this recipe. Each bite reminds us that recipes are memories passed
-            from one generation to the next.
-          </p>
-
-        </div>
+  {recipe.story
+    ?.split("\n")
+    .filter((paragraph) => paragraph.trim() !== "")
+    .map((paragraph, index) => (
+      <p key={index}>{paragraph}</p>
+    ))}
+</div>
 
       </div>
 

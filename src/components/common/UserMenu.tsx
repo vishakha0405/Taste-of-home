@@ -77,10 +77,14 @@ export default function UserMenu() {
               <span>Profile</span>
             </Link>
 
-            <button className="flex w-full items-center gap-3 rounded-lg px-4 py-3 text-left text-[#3D2B1F] transition hover:bg-[#F8F2EC]">
-              <BookOpen className="h-5 w-5 text-[#5B3A29]" />
-              <span>My Recipes</span>
-            </button>
+            <Link
+  href="/profile#my-recipes"
+  className="flex items-center gap-3 rounded-lg px-4 py-3 text-[#3D2B1F] transition hover:bg-[#F8F2EC]"
+  onClick={() => setIsOpen(false)}
+>
+  <BookOpen className="h-5 w-5 text-[#5B3A29]" />
+  <span>My Recipes</span>
+</Link>
 
             <button
               onClick={handleLogout}

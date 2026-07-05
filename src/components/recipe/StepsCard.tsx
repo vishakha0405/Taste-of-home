@@ -5,10 +5,7 @@ type Props = {
 };
 
 export default function StepsCard({ recipe }: Props) {
-  const steps =
-    recipe.steps
-      ?.split("\n")
-      .filter((step: string) => step.trim() !== "") || [];
+  const steps = recipe.steps || [];
 
   return (
     <section className="rounded-[32px] border border-[#E9DED2] bg-[#FDF9F4] p-8 shadow-sm">

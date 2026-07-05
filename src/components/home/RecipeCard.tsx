@@ -2,17 +2,19 @@ import Image from "next/image";
 import Link from "next/link";
 
 interface RecipeCardProps {
+  id: string;
   image: string;
   title: string;
 }
 
 export default function RecipeCard({
+  id,
   image,
   title,
 }: RecipeCardProps) {
   return (
     <Link
-      href="/recipes"
+      href={`/recipe/${id}`}
       className="group mb-8 block break-inside-avoid overflow-hidden rounded-[30px] bg-white shadow-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl"
     >
       <div className="relative overflow-hidden">

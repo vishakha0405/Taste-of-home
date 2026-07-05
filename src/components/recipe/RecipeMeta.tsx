@@ -17,37 +17,37 @@ export default function RecipeMeta({ recipe }: Props)
 
  {
   const items = [
-    {
-      icon: <Clock3 className="h-5 w-5 text-[#C17F5F]" />,
-      value: "30 min",
-      label: "Prep Time",
-    },
-    {
-      icon: <Flame className="h-5 w-5 text-[#C17F5F]" />,
-      value: "20 min",
-      label: "Cook Time",
-    },
-    {
-      icon: <Users className="h-5 w-5 text-[#7A9E7E]" />,
-      value: "4",
-      label: "Servings",
-    },
-    {
-      icon: <ChefHat className="h-5 w-5 text-[#7A9E7E]" />,
-      value: "Easy",
-      label: "Difficulty",
-    },
-    {
-      icon: <Utensils className="h-5 w-5 text-[#C17F5F]" />,
-      value: "Breakfast",
-      label: "Category",
-    },
-    {
-      icon: <Leaf className="h-5 w-5 text-[#7A9E7E]" />,
-      value: "Vegetarian",
-      label: "Diet",
-    },
-  ];
+  {
+    icon: <Clock3 className="h-5 w-5 text-[#C17F5F]" />,
+    value: `${recipe.prep_time} min`,
+    label: "Prep Time",
+  },
+  {
+    icon: <Flame className="h-5 w-5 text-[#C17F5F]" />,
+    value: `${recipe.cook_time} min`,
+    label: "Cook Time",
+  },
+  {
+    icon: <Users className="h-5 w-5 text-[#7A9E7E]" />,
+    value: recipe.servings,
+    label: "Servings",
+  },
+  {
+    icon: <ChefHat className="h-5 w-5 text-[#7A9E7E]" />,
+    value: recipe.difficulty,
+    label: "Difficulty",
+  },
+  {
+    icon: <Utensils className="h-5 w-5 text-[#C17F5F]" />,
+    value: recipe.category,
+    label: "Category",
+  },
+  {
+    icon: <Leaf className="h-5 w-5 text-[#7A9E7E]" />,
+    value: recipe.diet,
+    label: "Diet",
+  },
+];
 
   return (
     <section className="mt-10 rounded-[30px] border border-[#E9DED2] bg-[#FDF9F4] py-5 px-6 shadow-sm">
