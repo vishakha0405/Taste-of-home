@@ -1,6 +1,7 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
+import { revalidatePath } from "next/cache";
 
 type RecipeForm = {
   recipe_name: string;
@@ -161,11 +162,10 @@ export async function updateRecipe(
     };
   }
 
-  // Get existing recipe
   const { data: currentRecipe, error: recipeError } =
     await supabase
       .from("recipes")
-      .select("image_url, user_id")
+      .select("image_url,user_id")
       .eq("id", id)
       .single();
 
@@ -176,7 +176,6 @@ export async function updateRecipe(
     };
   }
 
-  // Only owner can edit
   if (currentRecipe.user_id !== user.id) {
     return {
       success: false,
@@ -186,7 +185,6 @@ export async function updateRecipe(
 
   let image_url = currentRecipe.image_url;
 
-  // Upload new image if selected
   if (formData.image) {
     const fileName = `${Date.now()}-${formData.image.name}`;
 
@@ -243,5 +241,63 @@ export async function updateRecipe(
   return {
     success: true,
     message: "Recipe updated successfully ❤️",
+  };
+}
+
+// ============================
+// Delete Recipe
+// ============================
+
+export async function deleteRecipe(id: string) {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return {
+      success: false,
+      message: "Please login first.",
+    };
+  }
+
+  const { data: recipe, error: recipeError } = await supabase
+    .from("recipes")
+    .select("user_id")
+    .eq("id", id)
+    .single();
+
+  if (recipeError || !recipe) {
+    return {
+      success: false,
+      message: "Recipe not found.",
+    };
+  }
+
+  if (recipe.user_id !== user.id) {
+    return {
+      success: false,
+      message: "Unauthorized.",
+    };
+  }
+
+  const { error } = await supabase
+    .from("recipes")
+    .delete()
+    .eq("id", id);
+
+  if (error) {
+    return {
+      success: false,
+      message: error.message,
+    };
+  }
+
+revalidatePath("/profile");
+
+  return {
+    success: true,
+    message: "Recipe deleted successfully ❤️",
   };
 }

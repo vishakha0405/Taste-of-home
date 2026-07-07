@@ -15,7 +15,9 @@ export default function ImageUpload({
 }: Props) {
   const [preview, setPreview] = useState<string | null>(null);
 
-  const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImage = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = e.target.files?.[0];
 
     if (!file) return;
@@ -31,11 +33,15 @@ export default function ImageUpload({
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-semibold text-[#4A3428]">
-        Recipe Cover Image
+        Recipe Cover Image{" "}
+        <span className="text-red-500">*</span>
       </h2>
 
-      <label className="flex h-72 cursor-pointer items-center justify-center rounded-2xl border-2 border-dashed border-[#C57D56] bg-[#FFF8F3] hover:bg-[#FFF2EA] transition">
+      <p className="text-sm text-[#7A6A5A]">
+        A cover image is required for every recipe.
+      </p>
 
+      <label className="flex h-72 cursor-pointer items-center justify-center rounded-2xl border-2 border-dashed border-[#C57D56] bg-[#FFF8F3] transition hover:bg-[#FFF2EA]">
         {preview ? (
           <img
             src={preview}

@@ -39,6 +39,12 @@ export default function UploadForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Image is required
+    if (!formData.image) {
+      toast.error("Please upload a recipe cover image.");
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -46,7 +52,6 @@ export default function UploadForm() {
 
       if (result.success) {
         toast.success(result.message);
-
         router.push("/community");
       } else {
         toast.error(result.message);
@@ -95,7 +100,7 @@ export default function UploadForm() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full rounded-xl bg-[#D97757] py-4 font-semibold text-white transition hover:bg-[#c76648] disabled:opacity-60 disabled:cursor-not-allowed"
+          className="w-full rounded-xl bg-[#D97757] py-4 font-semibold text-white transition hover:bg-[#c76648] disabled:cursor-not-allowed disabled:opacity-60"
         >
           {loading ? "Sharing Recipe..." : "Share Recipe ❤️"}
         </button>

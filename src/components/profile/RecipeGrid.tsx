@@ -1,5 +1,10 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { deleteRecipe } from "@/actions/recipe";
+import toast from "react-hot-toast";
 
 type Recipe = {
   id: string;
@@ -16,6 +21,27 @@ type RecipeGridProps = {
 export default function RecipeGrid({
   recipes,
 }: RecipeGridProps) {
+const router = useRouter();
+
+const handleDelete = async (id: string) => {
+  const confirmDelete = window.confirm(
+    "Are you sure you want to delete this recipe?"
+  );
+
+  if (!confirmDelete) return;
+
+  const result = await deleteRecipe(id);
+
+  if (result.success) {
+    toast.success(result.message);
+    router.refresh();
+  } else {
+    toast.error(result.message);
+  }
+};
+
+
+
   if (recipes.length === 0) {
     return (
       <div className="rounded-3xl border border-[#E8DDD2] bg-white p-12 text-center shadow-sm">
@@ -70,20 +96,27 @@ export default function RecipeGrid({
               </div>
 
               <div className="flex gap-3">
-                <Link
-                  href={`/recipe/${recipe.id}`}
-                  className="flex-1 rounded-xl border border-[#C17F5F] py-3 text-center font-medium text-[#C17F5F] transition hover:bg-[#F8F2EC]"
-                >
-                  View
-                </Link>
+  <Link
+    href={`/recipe/${recipe.id}`}
+    className="flex-1 rounded-xl border border-[#C17F5F] py-3 text-center font-medium text-[#C17F5F] transition hover:bg-[#F8F2EC]"
+  >
+    View
+  </Link>
 
-                <Link
-                  href={`/recipe/edit/${recipe.id}`}
-                  className="flex-1 rounded-xl bg-[#C17F5F] py-3 text-center font-medium text-white transition hover:bg-[#A96746]"
-                >
-                  Edit
-                </Link>
-              </div>
+  <Link
+    href={`/recipe/edit/${recipe.id}`}
+    className="flex-1 rounded-xl bg-[#C17F5F] py-3 text-center font-medium text-white transition hover:bg-[#A96746]"
+  >
+    Edit
+  </Link>
+
+  <button
+  onClick={() => handleDelete(recipe.id)}
+  className="rounded-xl bg-red-100 px-5 font-medium text-red-600 transition hover:bg-red-200"
+>
+  Delete
+</button>
+</div>
             </div>
           </div>
         ))}

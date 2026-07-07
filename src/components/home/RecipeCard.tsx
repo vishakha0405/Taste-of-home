@@ -19,10 +19,10 @@ export default function RecipeCard({
     >
       <div className="relative overflow-hidden">
         <Image
-          src={image}
-          alt={title}
-          width={600}
-          height={500}
+  src={image || "/placeholder-food.jpg"}
+  alt={title}
+  width={600}
+  height={400}
           className="h-[340px] w-full object-cover transition duration-700 group-hover:scale-105"
         />
 
