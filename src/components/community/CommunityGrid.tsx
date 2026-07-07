@@ -50,8 +50,8 @@ export default async function CommunityGrid() {
                category2={recipe.difficulty}
                author={recipe.author_name}
                avatar={recipe.author_name?.charAt(0).toUpperCase() ?? "?"}
-               likes="0"
-               comments="0"
+               likes={0}
+              comments={0}
                time={`${recipe.prep_time} mins`}
                />
               ))}
