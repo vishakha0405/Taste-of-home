@@ -42,7 +42,12 @@ export default function MasonryGrid({
           }
 
           case "photo":
-            return <PhotoCard key={item.id} image={item.image} />;
+  return (
+    <PhotoCard
+      key={item.id}
+      image={item.image || "/images/placeholder.jpg"}
+    />
+  );
 
           case "quote":
             return (
