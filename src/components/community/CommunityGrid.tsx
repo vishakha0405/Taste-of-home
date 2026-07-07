@@ -39,21 +39,17 @@ export default async function CommunityGrid() {
           ) : (
             <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
               {recipes.map((recipe) => (
-                <CommunityCard
-               id={recipe.id}
-               key={recipe.id}
-               image={recipe.image_url}
-               title={recipe.recipe_name}
-               description={recipe.story}
-               generation={recipe.generation}
-               category1={recipe.category}
-               category2={recipe.difficulty}
-               author={recipe.author_name}
-               avatar={recipe.author_name?.charAt(0).toUpperCase() ?? "?"}
-               likes={0}
-              comments={0}
-               time={`${recipe.prep_time} mins`}
-               />
+               <CommunityCard
+  key={recipe.id}
+  id={recipe.id}
+  image={recipe.image_url}
+  title={recipe.recipe_name}
+  description={recipe.story}
+  category1={recipe.category}
+  category2={recipe.difficulty}
+  author={recipe.author_name}
+  likes={0}
+/>
               ))}
             </div>
           )}
