@@ -11,14 +11,14 @@ export interface Recipe {
 
   prep_time: number;
   cook_time: number;
-  serving: number;
+  servings: number;
 
   difficulty: string;
   category: string;
   diet: string;
 
-  ingredients: string;
-  steps: string;
+  ingredients: string[];
+  steps: string[];
 
   image_url: string;
 
