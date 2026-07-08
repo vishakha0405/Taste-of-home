@@ -6,10 +6,13 @@ export async function getCommunityRecipes() {
     .select("*")
     .order("created_at", { ascending: false });
 
+  console.log("Community Data:", data);
+  console.log("Community Error:", error);
+
   if (error) {
     console.error(error);
     return [];
   }
 
-  return data;
+  return data ?? [];
 }
