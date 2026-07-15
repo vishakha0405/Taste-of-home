@@ -3,12 +3,41 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
+import { useRouter } from "next/navigation";
+
 import Logo from "./Logo";
-import AuthButton from "./AuthButton";
 import UserMenu from "./UserMenu";
+import { createClient } from "@/lib/supabase/client";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+
+  const router = useRouter();
+  const supabase = createClient();
+
+const handleShareRecipe = async () => {
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  console.log("Session:", session);
+console.log("User:", session?.user);
+
+  if (session) {
+    console.log("User is logged in");
+    router.push("/upload");
+    return;
+  }
+
+  console.log("User is NOT logged in");
+
+  await supabase.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      redirectTo: `${window.location.origin}/auth/callback?next=/upload`,
+    },
+  });
+};
 
   return (
     <header className="sticky top-0 z-50 border-b border-[#E9DED2] bg-[#FAF6F0]/95 backdrop-blur-md">
@@ -51,12 +80,12 @@ export default function Navbar() {
         <div className="hidden items-center gap-3 md:flex">
           <UserMenu />
 
-          <Link
-            href="/upload"
+          <button
+            onClick={handleShareRecipe}
             className="rounded-full bg-[#C17F5F] px-6 py-2 text-sm font-semibold text-white transition hover:bg-[#B36E4C]"
           >
             Share a Recipe
-          </Link>
+          </button>
         </div>
 
         {/* Mobile Menu Button */}
@@ -109,13 +138,15 @@ export default function Navbar() {
 
           <UserMenu />
 
-          <Link
-            href="/upload"
-            onClick={() => setIsOpen(false)}
-            className="rounded-full bg-[#C17F5F] py-3 text-center font-semibold text-white"
+          <button
+            onClick={() => {
+              setIsOpen(false);
+              handleShareRecipe();
+            }}
+            className="rounded-full bg-[#C17F5F] py-3 text-center font-semibold text-white transition hover:bg-[#B36E4C]"
           >
             Share a Recipe
-          </Link>
+          </button>
         </nav>
       </div>
     </header>
