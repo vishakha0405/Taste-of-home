@@ -54,11 +54,7 @@ export const homeFeed: HomeFeedItem[] = [
     type: "sticky",
     text: "Toast cumin before adding it to the dal.",
   },
-  {
-    id: 5,
-    type: "photo",
-    image: "/memories/kitchen.jpg",
-  },
+  
   {
     id: 6,
     type: "recipe-note",

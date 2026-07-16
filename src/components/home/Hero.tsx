@@ -73,22 +73,23 @@ export default function Hero() {
 
           {/* Hero Image */}
           <motion.div
-            initial={{ scale: 1.08 }}
-            animate={{ scale: 1 }}
-            transition={{
-              duration: 2,
-              ease: "easeOut",
-            }}
-            className="overflow-hidden rounded-[36px] shadow-[0_25px_70px_rgba(61,43,31,0.16)]"
-          >
-            <Image
-              src="/images/hero/hero.jpg"
-              alt="Grandmother cooking"
-              width={650}
-              height={750}
-              priority
-              className="h-[560px] w-full object-cover transition duration-1000 hover:scale-[1.02]"
-            />
+             initial={{ scale: 1.08 }}
+             animate={{ scale: 1 }}
+             transition={{
+             duration: 2,
+             ease: "easeOut",
+          }}
+            className="relative h-[560px] overflow-hidden rounded-[36px] shadow-[0_25px_70px_rgba(61,43,31,0.16)]"
+      >
+      <Image
+        src="/images/hero/hero.webp"
+        alt="Grandmother cooking traditional family recipe"
+        fill
+        priority
+        fetchPriority="high"
+        sizes="(max-width: 1024px) 100vw, 50vw"
+        className="object-cover transition duration-1000 hover:scale-[1.02]"
+      />
           </motion.div>
 
           {/* Floating Memory Card */}

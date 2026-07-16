@@ -1,13 +1,39 @@
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase/server";
 
-export async function getCommunityRecipes() {
+// Homepage
+export async function getFeaturedRecipes() {
+  const supabase = await createClient();
+
   const { data, error } = await supabase
     .from("recipes")
-    .select("*")
-    .order("created_at", { ascending: false });
+    .select("id, recipe_name, image_url")
+    .order("created_at", { ascending: false })
+    .limit(8);
 
-  console.log("Community Data:", data);
-  console.log("Community Error:", error);
+  if (error) {
+    console.error(error);
+    return [];
+  }
+
+  return data ?? [];
+}
+
+// Community Page
+export async function getCommunityRecipes() {
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from("recipes")
+    .select(`
+      id,
+      recipe_name,
+      image_url,
+      story,
+      category,
+      difficulty,
+      author_name
+    `)
+    .order("created_at", { ascending: false });
 
   if (error) {
     console.error(error);

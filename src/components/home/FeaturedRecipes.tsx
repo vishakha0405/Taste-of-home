@@ -1,10 +1,10 @@
 import SectionHeading from "./SectionHeading";
 import MasonryGrid from "./MasonryGrid";
 import Link from "next/link";
-import { getCommunityRecipes } from "@/actions/community";
+import { getFeaturedRecipes } from "@/actions/community";
 
 export default async function FeaturedRecipes() {
-  const recipes = await getCommunityRecipes();
+  const recipes = await getFeaturedRecipes();
 
   return (
     <section

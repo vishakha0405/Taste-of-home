@@ -8,6 +8,7 @@ import {
 
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
+import ToastProvider from "@/components/providers/ToastProvider";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -60,6 +61,13 @@ export default function RootLayout({
           }}
         />
       </body>
+
+      <body
+  className={`${playfair.variable} ${inter.variable} ${allura.variable} ${cormorant.variable} font-inter`}
+>
+  {children}
+  <ToastProvider />
+</body>
     </html>
   );
 }
