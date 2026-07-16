@@ -117,9 +117,10 @@ console.log("Result:", result);
       />
 
       <ImageUpload
-        formData={formData}
-        setFormData={setFormData}
-      />
+  formData={formData}
+  setFormData={setFormData}
+  currentImage={recipe?.image_url}
+/>
 
       <div className="mt-8">
         <button

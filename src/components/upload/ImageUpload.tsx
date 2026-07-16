@@ -1,17 +1,20 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 
 type Props = {
   formData: {
     image: File | null;
   };
   setFormData: React.Dispatch<React.SetStateAction<any>>;
+  currentImage?: string;
 };
 
 export default function ImageUpload({
   formData,
   setFormData,
+  currentImage,
 }: Props) {
   const [preview, setPreview] = useState<string | null>(null);
 
@@ -38,15 +41,24 @@ export default function ImageUpload({
       </h2>
 
       <p className="text-sm text-[#7A6A5A]">
-        A cover image is required for every recipe.
+        {currentImage
+          ? "Current cover image. Upload another one only if you want to replace it."
+          : "A cover image is required for every recipe."}
       </p>
 
-      <label className="flex h-72 cursor-pointer items-center justify-center rounded-2xl border-2 border-dashed border-[#C57D56] bg-[#FFF8F3] transition hover:bg-[#FFF2EA]">
+      <label className="relative flex h-72 cursor-pointer items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed border-[#C57D56] bg-[#FFF8F3] transition hover:bg-[#FFF2EA]">
         {preview ? (
           <img
             src={preview}
             alt="Preview"
-            className="h-full w-full rounded-2xl object-cover"
+            className="h-full w-full object-cover"
+          />
+        ) : currentImage ? (
+          <Image
+            src={currentImage}
+            alt="Current Recipe"
+            fill
+            className="object-cover"
           />
         ) : (
           <div className="text-center">
@@ -67,6 +79,12 @@ export default function ImageUpload({
           className="hidden"
         />
       </label>
+
+      {currentImage && (
+        <p className="text-center text-sm text-[#8A6D5C]">
+          Click the image to choose a new one.
+        </p>
+      )}
     </div>
   );
 }
