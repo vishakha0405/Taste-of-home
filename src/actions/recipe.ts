@@ -149,6 +149,11 @@ export async function updateRecipe(
   id: string,
   formData: RecipeForm
 ) {
+  console.log("===== UPDATE RECIPE =====");
+  console.log("Recipe ID:", id);
+  console.log("Recipe Name:", formData.recipe_name);
+  console.log("Story:", formData.story);
+
   const supabase = await createClient();
 
   const {
@@ -156,18 +161,23 @@ export async function updateRecipe(
   } = await supabase.auth.getUser();
 
   if (!user) {
+    console.log("❌ User not logged in");
     return {
       success: false,
       message: "Please login first.",
     };
   }
 
-  const { data: currentRecipe, error: recipeError } =
-    await supabase
-      .from("recipes")
-      .select("image_url,user_id")
-      .eq("id", id)
-      .single();
+  console.log("✅ Logged in as:", user.id);
+
+  const { data: currentRecipe, error: recipeError } = await supabase
+    .from("recipes")
+    .select("image_url,user_id")
+    .eq("id", id)
+    .single();
+
+  console.log("Current Recipe:", currentRecipe);
+  console.log("Recipe Fetch Error:", recipeError);
 
   if (recipeError || !currentRecipe) {
     return {
@@ -177,6 +187,7 @@ export async function updateRecipe(
   }
 
   if (currentRecipe.user_id !== user.id) {
+    console.log("❌ Unauthorized");
     return {
       success: false,
       message: "Unauthorized",
@@ -186,11 +197,15 @@ export async function updateRecipe(
   let image_url = currentRecipe.image_url;
 
   if (formData.image) {
+    console.log("Uploading new image...");
+
     const fileName = `${Date.now()}-${formData.image.name}`;
 
     const { error: uploadError } = await supabase.storage
       .from("recipes")
       .upload(fileName, formData.image);
+
+    console.log("Image Upload Error:", uploadError);
 
     if (uploadError) {
       return {
@@ -206,37 +221,60 @@ export async function updateRecipe(
     image_url = data.publicUrl;
   }
 
-  const { error } = await supabase
-    .from("recipes")
-    .update({
-      recipe_name: formData.recipe_name,
-      author_name: formData.author_name,
-      recipe_owner: formData.recipe_owner,
-      generation: formData.generation,
-      city: formData.city,
-      story: formData.story,
-      prep_time: formData.prep_time,
-      cook_time: formData.cook_time,
-      servings: formData.servings,
-      difficulty: formData.difficulty,
-      category: formData.category,
-      diet: formData.diet,
-      ingredients: formData.ingredients.filter(
-        (item) => item.trim() !== ""
-      ),
-      steps: formData.steps.filter(
-        (item) => item.trim() !== ""
-      ),
-      image_url,
-    })
-    .eq("id", id);
+  console.log("Updating database...");
 
-  if (error) {
-    return {
-      success: false,
-      message: error.message,
-    };
-  }
+ const { data, error } = await supabase
+  .from("recipes")
+  .update({
+    recipe_name: formData.recipe_name,
+    author_name: formData.author_name,
+    recipe_owner: formData.recipe_owner,
+    generation: formData.generation,
+    city: formData.city,
+    story: formData.story,
+    prep_time: formData.prep_time,
+    cook_time: formData.cook_time,
+    servings: formData.servings,
+    difficulty: formData.difficulty,
+    category: formData.category,
+    diet: formData.diet,
+    ingredients: formData.ingredients.filter(
+      (item) => item.trim() !== ""
+    ),
+    steps: formData.steps.filter(
+      (item) => item.trim() !== ""
+    ),
+    image_url,
+  })
+  .eq("id", id)
+  .select();
+
+console.log("Updated Rows:", data);
+console.log("Update Error:", error);
+   
+
+console.log("Update Error:", error);
+
+const { data: updatedRecipe } = await supabase
+  .from("recipes")
+  .select("story")
+  .eq("id", id)
+  .single();
+
+console.log("Story after update:", updatedRecipe);
+
+if (error) {
+  return {
+    success: false,
+    message: error.message,
+  };
+}
+
+  revalidatePath("/profile");
+  revalidatePath(`/recipe/${id}`);
+  revalidatePath("/community");
+
+  console.log("✅ Recipe Updated Successfully");
 
   return {
     success: true,
@@ -295,6 +333,7 @@ export async function deleteRecipe(id: string) {
   }
 
 revalidatePath("/profile");
+
 
   return {
     success: true,

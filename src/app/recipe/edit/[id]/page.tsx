@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
+import UploadForm from "@/components/upload/UploadForm";
 
 export default async function EditRecipePage({
   params,
@@ -38,7 +39,10 @@ export default async function EditRecipePage({
         Edit Recipe
       </h1>
 
-      {/* Upload form will come here */}
+      <UploadForm
+  recipe={recipe}
+  recipeId={recipe.id}
+/>
     </div>
   );
 }
